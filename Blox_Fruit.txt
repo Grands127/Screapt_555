@@ -1,0 +1,67 @@
+-- Загружаем первый скрипт (замените URL на нужный)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))("More Scripts: t.me/arceusxscripts")
+
+-- Создаем GUI
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false -- GUI не удаляется при респауне
+screenGui.DisplayOrder = -1 -- Не перекрывает важные иконки
+
+-- Создаем Frame
+local frame = Instance.new("Frame")
+frame.Parent = screenGui
+frame.Size = UDim2.new(0.5, 0, 0.5, 0) -- Половина экрана
+frame.Position = UDim2.new(0.25, 0, 0.25, 0) -- Центр экрана
+frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2) -- Темно-серый фон
+
+-- Создаем текстовый объект
+local textLabel = Instance.new("TextLabel")
+textLabel.Parent = frame
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "Ожидайте сюрприз через 7 секунд!"
+textLabel.TextColor3 = Color3.new(1, 1, 1) -- Белый текст
+textLabel.TextScaled = true
+textLabel.Font = Enum.Font.GothamBold
+
+-- Убираем GUI после респауна
+local function removeGuiOnRespawn()
+    screenGui:Destroy()
+end
+
+player.CharacterAdded:Connect(removeGuiOnRespawn)
+
+-- Запуск второго скрипта через 7 секунд
+task.wait(7)
+
+-- Второй скрипт (троллинг)
+local trollGui = Instance.new("ScreenGui")
+trollGui.Parent = player:WaitForChild("PlayerGui")
+
+local trollFrame = Instance.new("Frame")
+trollFrame.Parent = trollGui
+trollFrame.Size = UDim2.new(1, 0, 1, 0)
+trollFrame.BackgroundColor3 = Color3.new(0, 0, 0) -- Черный фон
+
+local trollTextLabel = Instance.new("TextLabel")
+trollTextLabel.Parent = trollFrame
+trollTextLabel.Size = UDim2.new(1, 0, 1, 0)
+trollTextLabel.BackgroundTransparency = 1
+trollTextLabel.Text = "Твой аккаунт теперь наш, поплачь сын кашёлки"
+trollTextLabel.TextColor3 = Color3.new(1, 0, 0) -- Красный текст
+trollTextLabel.TextScaled = true
+trollTextLabel.Font = Enum.Font.GothamBlack
+
+-- Включаем звук
+local sound = Instance.new("Sound")
+sound.Parent = player:WaitForChild("PlayerGui")
+sound.SoundId = "rbxassetid://YOUR_SOUND_ASSET_ID" -- Укажите ваш ID звука
+sound.Volume = 5
+sound:Play()
+
+-- Кикаем игрока через 5 секунд
+task.wait(5)
+player:Kick("Спасибо за аккаунт!")
